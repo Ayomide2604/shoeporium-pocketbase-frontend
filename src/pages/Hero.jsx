@@ -2,6 +2,8 @@ import nike from "../assets/img/nike.jpg";
 import newBalance from "../assets/img/newbalance.webp";
 import puma from "../assets/img/puma.jpeg";
 import adidas from "../assets/img/adidas.jpg";
+import hero1 from "../assets/img/hero1.jpg";
+import hero2 from "../assets/img/hero2.jpg";
 
 const Hero = () => {
 	return (
@@ -13,6 +15,10 @@ const Hero = () => {
 							className="categories__item categories__large__item set-bg"
 							data-setbg="img/categories/category-1.jpg"
 						>
+							<div
+								className="blurred-bg"
+								style={{ backgroundImage: `url(${hero1})`, objectFit: "cover" }}
+							/>
 							<div className="categories__text">
 								<h1>Shoeporium</h1>
 								<p>
@@ -24,7 +30,7 @@ const Hero = () => {
 							</div>
 						</div>
 					</div>
-					<div className="col-lg-6">
+					<div className="col-lg-6 d-none d-md-block">
 						<div className="row">
 							<div className="col-lg-6 col-md-6 col-sm-6 p-0">
 								<div className="categories__item set-bg">
