@@ -4,18 +4,20 @@ import {
 	FaCaretDown,
 	FaRegHeart,
 } from "react-icons/fa6";
+import { FaSearch } from "react-icons/fa";
 import logo from "../assets/img/logo.png"; // Replace with actual user image if you have
 import OffCanvas from "./OffCanvas";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import useAuthStore from "../stores/useAuthStore";
 import useCartStore from "../stores/useCartStore";
+import Search from "./Search";
 
 const Header = () => {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const dropdownRef = useRef(null);
-
+	const [search, setSearch] = useState(false);
 	const { user, logout } = useAuthStore();
 	const { total } = useCartStore();
 
@@ -89,9 +91,11 @@ const Header = () => {
 
 						<div className="col-lg-3 d-none d-md-block">
 							<div className="header__right d-flex align-items-center justify-content-end gap-3">
-								<ul className="header__right__widget d-flex align-items-center gap-3 m-0">
+								<ul className="header__right__widget d-flex align-items-center ">
 									<li>
-										<span className="icon_search search-switch" />
+										<Link to="#" onClick={() => setSearch(true)}>
+											<FaSearch />
+										</Link>
 									</li>
 									<li>
 										<Link to="#">
@@ -189,6 +193,7 @@ const Header = () => {
 						</div>
 					)}
 				</div>
+				<Search search={search} onClose={setSearch} />
 			</header>
 		</>
 	);

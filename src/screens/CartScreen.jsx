@@ -5,7 +5,7 @@ import CartSummary from "../components/CartSummary";
 import Coupon from "./../components/Coupon";
 import useCartStore from "../stores/useCartStore";
 const CartScreen = () => {
-	const { items, getCart, removeFromCart } = useCartStore();
+	const { items, getCart, removeFromCart, updateCart } = useCartStore();
 
 	useEffect(() => {
 		getCart();
@@ -20,7 +20,7 @@ const CartScreen = () => {
 							<CartTable
 								items={items}
 								removeFromCart={removeFromCart}
-								// updateCart={updateCart}
+								updateCart={updateCart}
 							/>
 						</div>
 					</div>
@@ -43,7 +43,7 @@ const CartScreen = () => {
 							<Coupon />
 						</div>
 						<div className="col-lg-4 offset-lg-2">
-							{/* <CartSummary items={items} /> */}
+							<CartSummary items={items} />
 						</div>
 					</div>
 				</div>

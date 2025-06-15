@@ -34,7 +34,7 @@ const CartTable = ({ items, removeFromCart, updateCart }) => {
 										item?.expand?.product?.images[0]
 									)}
 									alt={item.product?.name}
-									style={{ width: 60, height: 60, objectFit: "contain" }}
+									style={{ width: 100, height: 100, objectFit: "contain" }}
 								/>
 								<div className="cart__product__item__title">
 									<h6>{item.product?.name}</h6>

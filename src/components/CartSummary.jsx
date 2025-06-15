@@ -3,11 +3,12 @@ import formatter from "../utils/currencyFormatter";
 import { Link } from "react-router-dom";
 
 const CartSummary = ({ items }) => {
+	const shippingFee = 3000;
 	const subtotal = items.reduce(
-		(sum, item) => sum + item.price * item.quantity,
+		(sum, item) => sum + item?.expand?.product?.price * item.quantity,
 		0
 	);
-	const total = subtotal; // You can add tax/shipping logic here if needed
+	const total = subtotal + shippingFee; // You can add tax/shipping logic here if needed
 
 	return (
 		<div className="cart__total__procced">
@@ -15,6 +16,9 @@ const CartSummary = ({ items }) => {
 			<ul>
 				<li>
 					Subtotal <span>{formatter.format(subtotal)}</span>
+				</li>
+				<li>
+					Shgipping Fee: <span>{formatter.format(shippingFee)}</span>
 				</li>
 				<li>
 					Total <span>{formatter.format(total)}</span>

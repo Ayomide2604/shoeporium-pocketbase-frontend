@@ -97,18 +97,20 @@ const useCartStore = create((set, get) => ({
 		}
 	},
 
-	// // Update quantity
-	// updateCart: async (itemId, quantity) => {
-	// 	try {
-	// 		const user = await swell.account.get();
+	// Update quantity
+	updateCart: async (itemId, quantity) => {
+		try {
+			const response = await pb.collection("Cart_Item").update(itemId, {
+				quantity: quantity,
+			});
+			useCartStore.getState().getCart();
+			alert("updated product quantity");
 
-	// 		await swell.cart.updateItem(itemId, { quantity });
-	// 		const swellCart = await swell.cart.get();
-	// 		set({ items: swellCart.items });
-	// 	} catch (err) {
-	// 		console.error("Update cart error:", err);
-	// 	}
-	// },
+			console.log("Updated Cart Item Quantity", response);
+		} catch (err) {
+			console.error("Update cart error:", err);
+		}
+	},
 
 	// // Clear cart
 	// clearCart: async () => {
