@@ -10,6 +10,7 @@ const ProductScreen = () => {
 	const { products, fetchProducts, productsLoading } = useProductStore();
 	const { categories, fetchCategories, categoriesLoading } = useCategoryStore();
 	const [activeCategory, setActiveCategory] = useState(null);
+	const [filteredProducts, setFilteredProducts] = useState(products);
 
 	const handleCategoryChange = (categoryId) => {
 		setActiveCategory(categoryId);
@@ -19,6 +20,17 @@ const ProductScreen = () => {
 		fetchProducts();
 		fetchCategories();
 	}, []);
+
+	useEffect(() => {
+		if (activeCategory) {
+			const filtered = products.filter(
+				(product) => product.brand === activeCategory.id
+			);
+			setFilteredProducts(filtered);
+		} else {
+			setFilteredProducts(products);
+		}
+	}, [activeCategory, products]);
 
 	if (productsLoading || categoriesLoading) {
 		return <Loader />;
@@ -39,7 +51,11 @@ const ProductScreen = () => {
 						</div>
 						<div className="col-lg-9 col-md-9">
 							<div className="row">
-								{products.map((product) => {
+								{filteredProducts && filteredProducts.length === 0 && (
+									<h2>No products available</h2>
+								)}
+
+								{filteredProducts.map((product) => {
 									return (
 										<div key={product.id} className="col-lg-4 col-md-6">
 											<Product

@@ -3,14 +3,6 @@ import formatter from "../utils/currencyFormatter";
 import getImageUrl from "../utils/getImageUrl";
 
 const CartTable = ({ items, removeFromCart, updateCart }) => {
-	if (!items.length) {
-		return (
-			<div className="shop__cart__table">
-				<p>Your cart is empty.</p>
-			</div>
-		);
-	}
-
 	return (
 		<div className="shop__cart__table">
 			<table>
@@ -120,7 +112,6 @@ const CartTable = ({ items, removeFromCart, updateCart }) => {
 										border: "none",
 										cursor: "pointer",
 									}}
-									// onClick={() => removeFromCart(item.id, item.product?.name)}
 								>
 									<FaX onClick={() => removeFromCart(item?.id)} />
 								</button>

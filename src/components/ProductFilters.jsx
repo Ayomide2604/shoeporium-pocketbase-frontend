@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 
 const ShopSidebar = ({ categories, selectedCategory, onSelectCategory }) => {
-	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const [dropdownOpen, setDropdownOpen] = useState(true);
 
 	return (
 		<div className="shop__sidebar">
@@ -18,7 +18,9 @@ const ShopSidebar = ({ categories, selectedCategory, onSelectCategory }) => {
 								onClick={() => setDropdownOpen(!dropdownOpen)}
 							>
 								<a data-toggle="collapse" data-target="#collapseOne">
-									{selectedCategory ? selectedCategory.title : "All Shoes"}
+									<h6>
+										{selectedCategory ? selectedCategory.title : "All Shoes"}
+									</h6>
 								</a>
 
 								{dropdownOpen ? (
@@ -30,13 +32,17 @@ const ShopSidebar = ({ categories, selectedCategory, onSelectCategory }) => {
 							<div className={`collapse ${dropdownOpen && "show"}`}>
 								<div className="card-body">
 									<ul className="text-secondary ">
-										<li className="mb-2" style={{ cursor: "pointer" }}>
+										<li
+											className="mb-2"
+											style={{ cursor: "pointer" }}
+											onClick={() => onSelectCategory(null)}
+										>
 											All Shoes
 										</li>
 										{categories.map((category) => (
 											<li
 												className="mb-2 "
-												key={category.id || category.name}
+												key={category.id || category.title}
 												onClick={() => onSelectCategory(category)}
 												style={{ cursor: "pointer" }}
 											>

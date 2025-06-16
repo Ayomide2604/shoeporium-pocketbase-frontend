@@ -15,7 +15,7 @@ const useCategoryStore = create((set) => ({
 				categoriesLoading: false,
 				categories: response,
 			}));
-			console.log("categories:", response);
+			// console.log("categories:", response);
 		} catch (error) {
 			set((state) => ({ ...state, categoriesLoading: false }));
 			console.error(error);

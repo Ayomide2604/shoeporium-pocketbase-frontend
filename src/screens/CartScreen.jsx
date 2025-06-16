@@ -4,13 +4,14 @@ import CartTable from "../components/CartTable";
 import CartSummary from "../components/CartSummary";
 import Coupon from "./../components/Coupon";
 import useCartStore from "../stores/useCartStore";
+import EmptyCart from "../components/EmptyCart";
 const CartScreen = () => {
 	const { items, getCart, removeFromCart, updateCart } = useCartStore();
 
 	useEffect(() => {
 		getCart();
 	}, []);
-	return (
+	return items && items.length > 0 ? (
 		<div>
 			<BreadCrumb title="Shopping Cart" />
 			<section className="shop-cart spad">
@@ -49,6 +50,8 @@ const CartScreen = () => {
 				</div>
 			</section>
 		</div>
+	) : (
+		<EmptyCart />
 	);
 };
 

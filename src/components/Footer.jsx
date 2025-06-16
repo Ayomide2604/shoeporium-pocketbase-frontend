@@ -1,5 +1,4 @@
-import React from "react";
-
+import { FaFacebook, FaInstagram, FaTiktok, FaXTwitter } from "react-icons/fa6";
 const Footer = () => {
 	return (
 		<footer className="footer">
@@ -84,19 +83,16 @@ const Footer = () => {
 							</form>
 							<div className="footer__social">
 								<a href="#">
-									<i className="fa fa-facebook"></i>
+									<FaFacebook />
 								</a>
 								<a href="#">
-									<i className="fa fa-twitter"></i>
+									<FaXTwitter />
 								</a>
 								<a href="#">
-									<i className="fa fa-youtube-play"></i>
+									<FaInstagram />
 								</a>
 								<a href="#">
-									<i className="fa fa-instagram"></i>
-								</a>
-								<a href="#">
-									<i className="fa fa-pinterest"></i>
+									<FaTiktok/>
 								</a>
 							</div>
 						</div>
