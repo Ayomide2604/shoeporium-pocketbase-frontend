@@ -99,7 +99,7 @@ const useCartStore = create((set, get) => ({
 			const response = await pb.collection("Cart_Item").delete(itemId);
 			console.log(response);
 			toast.success("removed item from cart");
-			useCartStore.getState().getCart();
+			// useCartStore.getState().getCart();
 			set((state) => ({ ...state, cartLoading: false }));
 		} catch (err) {
 			toast.error("Action Failed");
