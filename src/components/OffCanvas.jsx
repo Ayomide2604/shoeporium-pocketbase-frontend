@@ -57,22 +57,38 @@ const OffCanvas = ({ menuOpen, onClose, total }) => {
 						>
 							<ul className="list-unstyled" onClick={onClose}>
 								<li className="mb-2">
-									<Link to="/" role="menuitem" style={{ textDecoration: "none" }}>
+									<Link
+										to="/"
+										role="menuitem"
+										style={{ textDecoration: "none" }}
+									>
 										Home
 									</Link>
 								</li>
 								<li className="mb-2">
-									<Link to="/about" role="menuitem" style={{ textDecoration: "none" }}>
+									<Link
+										to="/about"
+										role="menuitem"
+										style={{ textDecoration: "none" }}
+									>
 										About
 									</Link>
 								</li>
 								<li className="mb-2">
-									<Link to="/shop" role="menuitem" style={{ textDecoration: "none" }}>
+									<Link
+										to="/shop"
+										role="menuitem"
+										style={{ textDecoration: "none" }}
+									>
 										Shop
 									</Link>
 								</li>
 								<li className="mb-2">
-									<Link to="/contact" role="menuitem" style={{ textDecoration: "none" }}>
+									<Link
+										to="/contact"
+										role="menuitem"
+										style={{ textDecoration: "none" }}
+									>
 										Contact
 									</Link>
 								</li>
