@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
 import useAuthStore from "./../stores/useAuthStore";
 import Loader from "../components/Loader";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import logo from "../assets/img/logo.png";
 const Register = () => {
 	const [data, setData] = useState({});
 	const formRef = useRef(null);
@@ -46,7 +47,7 @@ const Register = () => {
 			>
 				<div className="text-center mb-4">
 					<img
-						src=""
+						src={logo}
 						alt="Shoeporium Logo"
 						style={{ height: 60, marginBottom: 16 }}
 					/>
@@ -187,13 +188,13 @@ const Register = () => {
 				<div className="text-center mt-4">
 					<span style={{ fontSize: 14 }}>
 						Already have an account?{" "}
-						<a
-							href="/login"
+						<Link
+							to="/login"
 							className="text-decoration-none"
 							style={{ color: "#ca1515", fontWeight: 600 }}
 						>
 							Sign In
-						</a>
+						</Link>
 					</span>
 				</div>
 			</div>

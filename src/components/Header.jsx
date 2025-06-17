@@ -18,7 +18,6 @@ const Header = () => {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const [search, setSearch] = useState(false);
 	const [menuOpen, setMenuOpen] = useState(false);
-	const dropdownRef = useRef(null);
 	const { user, logout } = useAuthStore();
 	const { total } = useCartStore();
 	const navigate = useNavigate();
@@ -82,7 +81,7 @@ const Header = () => {
 									</span>
 								)}
 							</Link>
-							<div className="position-relative" ref={dropdownRef}>
+							<div className="position-relative">
 								{user ? (
 									<div
 										className="d-flex align-items-center gap-2"
@@ -110,17 +109,22 @@ const Header = () => {
 										<FaCaretDown />
 									</div>
 								) : (
-									<>
+									<div className="offcanvas__auth">
 										<Link
-											className="btn btn-outline-primary btn-sm"
+											className="me-2"
 											to="/login"
+											style={{ textDecoration: "none", color: "#000" }}
 										>
 											Login
 										</Link>
-										<Link className="btn btn-primary btn-sm" to="/register">
+										<Link
+											className=""
+											to="/register"
+											style={{ textDecoration: "none", color: "#000" }}
+										>
 											Register
 										</Link>
-									</>
+									</div>
 								)}
 								{dropdownOpen && user && (
 									<ul

@@ -13,7 +13,7 @@ function App() {
 	return (
 		<>
 			<Header />
-			<div>
+			<div style={{ paddingTop: "100px" }}>
 				<Routes>
 					<Route path="/" element={<HomeScreen />} />
 					<Route path="/shop" element={<ProductScreen />} />

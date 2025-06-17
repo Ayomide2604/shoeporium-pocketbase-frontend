@@ -4,7 +4,7 @@ import useAuthStore from "../stores/useAuthStore";
 import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
 import useCartStore from "../stores/useCartStore";
-
+import logo from "../assets/img/logo.png";
 const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -32,7 +32,7 @@ const Login = () => {
 			>
 				<div className="text-center mb-4">
 					<img
-						src=""
+						src={logo}
 						alt="Shoeporium Logo"
 						style={{ height: 60, marginBottom: 16 }}
 					/>
