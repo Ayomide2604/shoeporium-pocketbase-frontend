@@ -1654,10 +1654,20 @@ ol {
 	min-width: 100%;
 }
 
+/* Default: mobile (full width) */
 .product__details__slider__content {
-	width: calc(78% - 20px);
-	float: left;
-	margin-left: 20px;
+	width: 100%;
+	margin-left: 0;
+	float: none;
+}
+
+/* For medium screens and above */
+@media (min-width: 768px) {
+	.product__details__slider__content {
+		width: calc(78% - 40px);
+		float: left;
+		margin-left: 20px;
+	}
 }
 
 .product__details__pic__slider.owl-carousel .owl-nav button {
@@ -3726,7 +3736,7 @@ ol {
 
 .blurred-bg {
 	background-size: cover;
-	filter:  brightness(0.5);
+	filter: brightness(0.5);
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -3752,4 +3762,75 @@ ol {
 .categories__item.set-bg:focus .categories__text,
 .categories__item.set-bg:active .categories__text {
 	filter: brightness(1.2) !important;
+}
+
+
+
+/* Modern Layout for Product Detail Page */
+.product__details__text h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.product__details__price {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ca1515;
+  margin-bottom: 1rem;
+}
+
+.product__details__text p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.product__details__button .btn {
+  font-size: 1rem;
+  padding: 0.65rem 1.2rem;
+  border-radius: 8px;
+}
+
+.quantity span {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.cart-btn {
+  background-color: #ca1515;
+  color: white;
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.cart-btn:hover {
+  background-color: #a81212;
+}
+
+@media (max-width: 767.98px) {
+  .product__details__text h3 {
+    font-size: 1.4rem;
+  }
+
+  .product__details__price {
+    font-size: 1.25rem;
+  }
+
+  .cart-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .product__details__button .btn {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .quantity input {
+    font-size: 1.1rem;
+  }
 }

@@ -1,12 +1,10 @@
 import BreadCrumb from "../components/BreadCrumb";
 import { useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-
 import useProductStore from "../stores/useProductStore";
 import useCartStore from "../stores/useCartStore";
 import Loader from "../components/Loader";
 import formatter from "../utils/currencyFormatter";
-
 import ProductDetailImage from "../components/ProductDetailImage";
 import { toast } from "sonner";
 
@@ -17,11 +15,9 @@ const ProductDetail = () => {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const { addToCart } = useCartStore();
 	const [quantity, setQuantity] = useState(1);
-	// Find the size option from product.options
 
-	const availableSizes = product?.sizes?.map((v) => v) || [];
+	const availableSizes = product?.sizes || [];
 	const [selectedSize, setSelectedSize] = useState("");
-	// console.log("selected size:", selectedSize);
 
 	useEffect(() => {
 		fetchProductById(id);
@@ -45,9 +41,8 @@ const ProductDetail = () => {
 		addToCart(productId, quantity, size);
 	};
 
-	if (productLoading) {
-		return <Loader />;
-	}
+	if (productLoading) return <Loader />;
+
 	return (
 		<div>
 			<BreadCrumb title={product?.name} />
@@ -63,199 +58,83 @@ const ProductDetail = () => {
 								swiperRef={swiperRef}
 							/>
 						</div>
+
 						<div className="col-lg-6">
 							<div className="product__details__text">
-								<h3>
-									{product?.name}
-									<div className="d-flex col-2 mt-3 ">
-										<p className=" badge badge-pill bg-secondary text-white">
-											{product?.expand?.brand?.title}
-										</p>
-									</div>
-								</h3>
-								{/* <div className="rating">
-									<i className="fa fa-star" />
-									<i className="fa fa-star" />
-									<i className="fa fa-star" />
-									<i className="fa fa-star" />
-									<i className="fa fa-star" />
-									<span>( 138 reviews )</span>
-								</div> */}
-								<div className="product__details__price">
+								<h1 className="h1 mb-3">{product?.name}</h1>
+								<p className="badge rounded-pill bg-dark text-white px-3 py-2 fs-6 mb-3">
+									{product?.expand?.brand?.title}
+								</p>
+
+								<div className="fs-3 fw-bold text-danger mb-4">
 									{formatter.format(product?.price)}
 								</div>
-								<p
-									dangerouslySetInnerHTML={{
-										__html: product?.description,
-									}}
-								/>
-								{availableSizes.length > 0 && (
-									<div
-										className="mb-3 d-flex align-items-center flex-wrap"
-										style={{ gap: 12 }}
-									>
-										<span style={{ fontWeight: 500, marginRight: 8 }}>
-											Select Size:
-										</span>
-										{availableSizes.map((size) => (
-											<button
-												key={size}
-												type="button"
-												className={`btn btn-outline-dark px-3 py-2 fw-bold${
-													selectedSize === String(size)
-														? " bg-danger text-white"
-														: ""
-												}`}
-												style={{
-													borderRadius: 8,
-													borderColor: selectedSize && "#ca1515",
-													color:
-														selectedSize === String(size) ? "#fff" : undefined,
-													background:
-														selectedSize === String(size)
-															? "#ca1515"
-															: undefined,
-													transition: "all 0.2s",
-												}}
-												onClick={() => setSelectedSize(String(size))}
-											>
-												{size}
-											</button>
-										))}
+
+								{/* Size & Quantity in a row */}
+								<div className="row gx-3 gy-3 mb-4">
+									{/* Size dropdown */}
+									<div className="col-6">
+										<label className="form-label fw-medium">Select Size:</label>
+										<select
+											className="form-select py-2 fs-6"
+											value={selectedSize}
+											onChange={(e) => setSelectedSize(e.target.value)}
+										>
+											<option value="">-- Choose a size --</option>
+											{availableSizes.map((size) => (
+												<option key={size} value={size}>
+													{size}
+												</option>
+											))}
+										</select>
 									</div>
-								)}
-								<div className="product__details__button">
-									<div className="quantity">
-										<span>Quantity:</span>
-										<div className="pro-qty d-flex align-items-center">
+
+									{/* Quantity */}
+									<div className="col-6">
+										<label className="form-label fw-medium">Quantity:</label>
+										<div className="d-flex align-items-center gap-2">
 											<button
 												type="button"
-												className="btn btn-light border px-3 py-1 shadow-sm fs-5 fw-bold"
-												style={{
-													borderRadius: "50%",
-													width: 36,
-													height: 36,
-													display: "flex",
-													alignItems: "center",
-													justifyContent: "center",
-													color: "#ca1515",
-													borderColor: "#ca1515",
-													marginRight: 8,
-												}}
+												className="btn btn-outline-danger rounded-circle d-flex align-items-center justify-content-center"
+												style={{ width: 36, height: 36 }}
 												onClick={() => setQuantity((q) => (q > 1 ? q - 1 : 1))}
-												aria-label="Decrease quantity"
 											>
-												-
+												–
 											</button>
 											<input
-												type="number"
+												type="text"
+												className="form-control text-center fw-bold fs-6"
 												value={quantity}
-												min={1}
-												disabled
-												style={{
-													width: 50,
-													textAlign: "center",
-													background: "#fff",
-													border: "none",
-													fontWeight: 600,
-													fontSize: 18,
-												}}
 												readOnly
+												style={{
+													width: 60,
+													height: 36,
+													border: "1px solid #dee2e6",
+													padding: 0,
+												}}
 											/>
 											<button
 												type="button"
-												className="btn btn-light border px-3 py-1 shadow-sm fs-5 fw-bold"
-												style={{
-													borderRadius: "50%",
-													width: 36,
-													height: 36,
-													display: "flex",
-													alignItems: "center",
-													justifyContent: "center",
-													color: "#ca1515",
-													borderColor: "#ca1515",
-												}}
+												className="btn btn-outline-danger rounded-circle d-flex align-items-center justify-content-center"
+												style={{ width: 36, height: 36 }}
 												onClick={() => setQuantity((q) => q + 1)}
-												aria-label="Increase quantity"
 											>
 												+
 											</button>
 										</div>
 									</div>
-									<div
-										style={{ cursor: "pointer" }}
-										onClick={() => {
-											if (quantity > 0) {
-												handleAddToCart(
-													product.id,
-													parseInt(quantity),
-													selectedSize
-												);
-											}
-										}}
-										className="cart-btn"
-									>
-										Add to cart
-									</div>
 								</div>
-								{/* <div className="product__details__widget">
-									<ul>
-										<li>
-											<span>Availability:</span>
-											<div className="stock__checkbox">
-												<label htmlFor="stockin">
-													In Stock
-													<input type="checkbox" id="stockin" />
-													<span className="checkmark" />
-												</label>
-											</div>
-										</li>
-										<li>
-											<span>Available color:</span>
-											<div className="color__checkbox">
-												<label htmlFor="red">
-													<input
-														type="radio"
-														name="color__radio"
-														id="red"
-														defaultChecked=""
-													/>
-													<span className="checkmark" />
-												</label>
-												<label htmlFor="black">
-													<input type="radio" name="color__radio" id="black" />
-													<span className="checkmark black-bg" />
-												</label>
-												<label htmlFor="grey">
-													<input type="radio" name="color__radio" id="grey" />
-													<span className="checkmark grey-bg" />
-												</label>
-											</div>
-										</li>
-										<li>
-											<span>Available size:</span>
-											<div className="size__btn">
-												<label htmlFor="xs-btn" className="active">
-													<input type="radio" id="xs-btn" />
-													xs
-												</label>
-												<label htmlFor="s-btn">
-													<input type="radio" id="s-btn" />s
-												</label>
-												<label htmlFor="m-btn">
-													<input type="radio" id="m-btn" />m
-												</label>
-												<label htmlFor="l-btn">
-													<input type="radio" id="l-btn" />l
-												</label>
-											</div>
-										</li>
-										<li>
-											<span>Promotions:</span>
-											<p>Free shipping</p>
-										</li>
-									</ul>
-								</div> */}
+
+								{/* Add to Cart Button */}
+								<button
+									type="button"
+									onClick={() =>
+										handleAddToCart(product.id, quantity, selectedSize)
+									}
+									className="btn btn-danger w-100 py-3 fw-bold fs-5"
+								>
+									Add to Cart
+								</button>
 							</div>
 						</div>
 					</div>
