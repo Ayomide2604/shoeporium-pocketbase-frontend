@@ -1,4 +1,3 @@
-import React from "react";
 import formatter from "../utils/currencyFormatter";
 import { Link } from "react-router-dom";
 
@@ -18,7 +17,7 @@ const CartSummary = ({ items }) => {
 					Subtotal <span>{formatter.format(subtotal)}</span>
 				</li>
 				<li>
-					Shgipping Fee: <span>{formatter.format(shippingFee)}</span>
+					Shipping Fee: <span>{formatter.format(shippingFee)}</span>
 				</li>
 				<li>
 					Total <span>{formatter.format(total)}</span>

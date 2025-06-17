@@ -1,35 +1,35 @@
-import React, { useState } from "react";
-import { toast } from "react-toastify";
-import useOrderStore from "../store/useOrderStore";
-import useAuthStore from "../store/useAuthStore";
+// import React, { useState } from "react";
+// import { toast } from "react-toastify";
+// import useOrderStore from "../store/useOrderStore";
+// import useAuthStore from "../store/useAuthStore";
 
 const CheckoutForm = () => {
 	// const [addNote, setAddNote] = useState(false);
-	const user = useAuthStore((s) => s.user);
+	// const user = useAuthStore((s) => s.user);
 
-	const setShippingDetails = useOrderStore((s) => s.setShippingDetails);
+	// const setShippingDetails = useOrderStore((s) => s.setShippingDetails);
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		const formData = new FormData(e.target);
-		const shipping = {
-			firstName: formData.get("firstName")?.trim() || "",
-			lastName: formData.get("lastName")?.trim() || "",
-			phone: formData.get("phone")?.trim() || "",
-			state: formData.get("state")?.trim() || "",
-			city: formData.get("city")?.trim() || "",
-			address: formData.get("address")?.trim() || "",
-		};
-		setShippingDetails(shipping);
-		// Do NOT call window.handlePlaceOrder here, just update shipping details
-		toast.success("Shipping details saved. You can now place your order.");
-	};
+	// const handleSubmit = (e) => {
+	// 	e.preventDefault();
+	// 	const formData = new FormData(e.target);
+	// 	const shipping = {
+	// 		firstName: formData.get("firstName")?.trim() || "",
+	// 		lastName: formData.get("lastName")?.trim() || "",
+	// 		phone: formData.get("phone")?.trim() || "",
+	// 		state: formData.get("state")?.trim() || "",
+	// 		city: formData.get("city")?.trim() || "",
+	// 		address: formData.get("address")?.trim() || "",
+	// 	};
+	// 	setShippingDetails(shipping);
+	// 	// Do NOT call window.handlePlaceOrder here, just update shipping details
+	// 	toast.success("Shipping details saved. You can now place your order.");
+	// };
 
 	return (
 		<form
 			action="#"
 			className="checkout__form"
-			onSubmit={handleSubmit}
+			// onSubmit={handleSubmit}
 			autoComplete="off"
 		>
 			<h5>Billing details</h5>
@@ -58,7 +58,7 @@ const CheckoutForm = () => {
 						<input
 							type="text"
 							name="email"
-							value={user?.email || ""}
+							// value={user?.email || ""}
 							disabled
 							required
 						/>

@@ -78,7 +78,7 @@ const useCartStore = create((set, get) => ({
 					cart: cart.id,
 				});
 				useCartStore.getState().getCart();
-				console.log("Created item:", response);
+				// console.log("Created item:", response);
 			}
 		} catch (err) {
 			console.error("Add to cart error:", err);

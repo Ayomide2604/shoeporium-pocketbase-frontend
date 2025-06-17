@@ -82,6 +82,7 @@ const CartTable = ({ items, removeFromCart, updateCart }) => {
 											updateCart(item.id, Number(e.target.value))
 										}
 										style={{ width: 50, textAlign: "center" }}
+										disabled
 									/>
 									<button
 										type="button"

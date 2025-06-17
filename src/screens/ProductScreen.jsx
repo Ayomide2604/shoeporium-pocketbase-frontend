@@ -11,6 +11,8 @@ const ProductScreen = () => {
 	const { categories, fetchCategories, categoriesLoading } = useCategoryStore();
 	const [activeCategory, setActiveCategory] = useState(null);
 	const [filteredProducts, setFilteredProducts] = useState(products);
+	const [currentPage, setCurrentPage] = useState(1);
+	const productsPerPage = 9;
 
 	const handleCategoryChange = (categoryId) => {
 		setActiveCategory(categoryId);
@@ -27,6 +29,7 @@ const ProductScreen = () => {
 				(product) => product.brand === activeCategory.id
 			);
 			setFilteredProducts(filtered);
+			setCurrentPage(1);
 		} else {
 			setFilteredProducts(products);
 		}
@@ -35,6 +38,15 @@ const ProductScreen = () => {
 	if (productsLoading || categoriesLoading) {
 		return <Loader />;
 	}
+
+	// Pagination logic
+	const indexOfLastProduct = currentPage * productsPerPage;
+	const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+	const currentProducts = filteredProducts.slice(
+		indexOfFirstProduct,
+		indexOfLastProduct
+	);
+	const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
 	return (
 		<>
@@ -51,11 +63,11 @@ const ProductScreen = () => {
 						</div>
 						<div className="col-lg-9 col-md-9">
 							<div className="row">
-								{filteredProducts && filteredProducts.length === 0 && (
+								{currentProducts && currentProducts.length === 0 && (
 									<h2>No products available</h2>
 								)}
 
-								{filteredProducts.map((product) => {
+								{currentProducts.map((product) => {
 									return (
 										<div key={product.id} className="col-lg-4 col-md-6">
 											<Product
@@ -68,9 +80,15 @@ const ProductScreen = () => {
 									);
 								})}
 
-								<div className="col-lg-12 text-center">
-									<Pagination />
-								</div>
+								{filteredProducts.length > productsPerPage && (
+									<div className="col-lg-12 text-center mt-4">
+										<Pagination
+											currentPage={currentPage}
+											totalPages={totalPages}
+											onPageChange={setCurrentPage}
+										/>
+									</div>
+								)}
 							</div>
 						</div>
 					</div>

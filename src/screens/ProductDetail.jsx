@@ -67,10 +67,11 @@ const ProductDetail = () => {
 							<div className="product__details__text">
 								<h3>
 									{product?.name}
-									<span className="d-flex col-1 badge badge-pill bg-secondary text-white ">
-										{" "}
-										{product?.expand?.brand?.title}
-									</span>
+									<div className="d-flex col-2 mt-3 ">
+										<p className=" badge badge-pill bg-secondary text-white">
+											{product?.expand?.brand?.title}
+										</p>
+									</div>
 								</h3>
 								{/* <div className="rating">
 									<i className="fa fa-star" />
@@ -102,15 +103,12 @@ const ProductDetail = () => {
 												type="button"
 												className={`btn btn-outline-dark px-3 py-2 fw-bold${
 													selectedSize === String(size)
-														? " bg-dark text-white"
+														? " bg-danger text-white"
 														: ""
 												}`}
 												style={{
 													borderRadius: 8,
-													borderColor:
-														selectedSize === String(size)
-															? "#ca1515"
-															: undefined,
+													borderColor: selectedSize && "#ca1515",
 													color:
 														selectedSize === String(size) ? "#fff" : undefined,
 													background:

@@ -8,6 +8,7 @@ import CartScreen from "./screens/CartScreen";
 import ProductDetail from "./screens/ProductDetail";
 import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
+import CheckoutScreen from "./screens/CheckoutScreen";
 function App() {
 	return (
 		<>
@@ -18,6 +19,7 @@ function App() {
 					<Route path="/shop" element={<ProductScreen />} />
 					<Route path="/shop/:id" element={<ProductDetail />} />
 					<Route path="/cart" element={<CartScreen />} />
+					<Route path="/checkout" element={<CheckoutScreen />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Register />} />
 					<Route path="/profile" element={<Profile />} />
