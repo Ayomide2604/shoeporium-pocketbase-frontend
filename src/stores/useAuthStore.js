@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import pb from "./../utils/pocketbase";
 import { toast } from "sonner";
+import useCartStore from "./useCartStore";
 
 const useAuthStore = create((set) => ({
 	user: localStorage.getItem("pocketbase_auth")
@@ -41,7 +42,7 @@ const useAuthStore = create((set) => ({
 		}
 	},
 
-	login: async (email, password, navigate) => {
+	login: async (email, password, navigate, getCart) => {
 		try {
 			set((state) => ({ ...state, loginLoading: true }));
 
@@ -54,8 +55,9 @@ const useAuthStore = create((set) => ({
 				user: JSON.parse(localStorage.getItem("pocketbase_auth")),
 			}));
 			toast.success("Login successful");
+			getCart();
 			navigate("/");
-			console.log(response);
+			// console.log(response);
 		} catch (error) {
 			set((state) => ({ ...state, loginLoading: false }));
 			toast.error("Login Failed");

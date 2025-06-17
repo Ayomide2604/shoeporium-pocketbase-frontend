@@ -3,17 +3,18 @@ import { Link } from "react-router-dom";
 import useAuthStore from "../stores/useAuthStore";
 import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
+import useCartStore from "../stores/useCartStore";
 
 const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const { login, loginLoading } = useAuthStore();
+	const { getCart } = useCartStore();
 	const navigate = useNavigate();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		login(email, password, navigate);
+		login(email, password, navigate, getCart);
 	};
 
 	if (loginLoading) {
