@@ -94,14 +94,17 @@ const useCartStore = create((set, get) => ({
 
 	// Remove item
 	removeFromCart: async (itemId) => {
+		set((state) => ({ ...state, cartLoading: true }));
 		try {
 			const response = await pb.collection("Cart_Item").delete(itemId);
 			console.log(response);
 			toast.success("removed item from cart");
 			useCartStore.getState().getCart();
+			set((state) => ({ ...state, cartLoading: false }));
 		} catch (err) {
 			toast.error("Action Failed");
 			console.error("Remove from cart error:", err);
+			set((state) => ({ ...state, cartLoading: false }));
 		}
 	},
 
