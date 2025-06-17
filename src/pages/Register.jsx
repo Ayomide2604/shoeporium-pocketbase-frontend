@@ -27,8 +27,7 @@ const Register = () => {
 		if (data.password !== data.passwordConfirm) {
 			alert("Passwords do not match");
 		} else {
-			register(data);
-			navigate("/login");
+			register(data, navigate);
 		}
 	};
 

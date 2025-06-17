@@ -6,7 +6,9 @@ import BreadCrumb from "../components/BreadCrumb";
 import ProductFilters from "../components/ProductFilters";
 import useCategoryStore from "../stores/useCategoryStore";
 import Pagination from "./../components/Pagination";
+import Search from "../components/Search";
 const ProductScreen = () => {
+	const [searchInput, setSearchInput] = useState("");
 	const { products, fetchProducts, productsLoading } = useProductStore();
 	const { categories, fetchCategories, categoriesLoading } = useCategoryStore();
 	const [activeCategory, setActiveCategory] = useState(null);
@@ -50,6 +52,7 @@ const ProductScreen = () => {
 
 	return (
 		<>
+			<Search />
 			<BreadCrumb title="Shop" />
 			<section className="shop spad">
 				<div className="container">

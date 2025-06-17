@@ -1,11 +1,10 @@
 // import React, { useState } from "react";
 // import { toast } from "react-toastify";
 // import useOrderStore from "../store/useOrderStore";
-// import useAuthStore from "../store/useAuthStore";
-
+import useAuthStore from "../stores/useAuthStore";
 const CheckoutForm = () => {
 	// const [addNote, setAddNote] = useState(false);
-	// const user = useAuthStore((s) => s.user);
+	const { user } = useAuthStore();
 
 	// const setShippingDetails = useOrderStore((s) => s.setShippingDetails);
 
@@ -58,9 +57,9 @@ const CheckoutForm = () => {
 						<input
 							type="text"
 							name="email"
-							// value={user?.email || ""}
-							disabled
+							value={user?.record?.email || ""}
 							required
+							disabled
 						/>
 					</div>
 				</div>

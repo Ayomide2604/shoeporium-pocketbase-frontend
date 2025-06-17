@@ -2,7 +2,7 @@ import { create } from "zustand";
 import pb from "../utils/pocketbase";
 import useAuthStore from "./useAuthStore";
 import useCartStore from "./useCartStore";
-
+import { toast } from "sonner";
 const useOrderStore = create((set) => ({
 	orders: [],
 
@@ -10,7 +10,7 @@ const useOrderStore = create((set) => ({
 		const cartItems = useCartStore.getState().items;
 		const cartId = useCartStore.getState().cart.id;
 		const user = useAuthStore.getState().user.record.id;
-		const status = "pending";
+		const payment_status = "pending";
 		const total = cartItems.reduce(
 			(sum, item) => sum + item.expand.product.price * item.quantity,
 			0
@@ -24,7 +24,7 @@ const useOrderStore = create((set) => ({
 		if (cartItems.length > 0) {
 			const order = await pb.collection("Order").create({
 				user: user,
-				status: status,
+				paid: payment_status,
 				total: total,
 			});
 			console.log("order created");
@@ -54,10 +54,10 @@ const useOrderStore = create((set) => ({
 
 			// Update Order state in store
 			set((state) => ({ ...state, orders: [...state.orders, order] }));
-			alert("order Placed successfully");
+			toast.success("order Placed successfully");
 			console.log("order updated in state");
 		} else {
-			alert("You cannot place an empty order");
+			toast.warning("You cannot place an empty order");
 		}
 	},
 }));

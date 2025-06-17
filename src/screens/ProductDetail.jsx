@@ -8,6 +8,7 @@ import Loader from "../components/Loader";
 import formatter from "../utils/currencyFormatter";
 
 import ProductDetailImage from "../components/ProductDetailImage";
+import { toast } from "sonner";
 
 const ProductDetail = () => {
 	const { id } = useParams();
@@ -38,11 +39,10 @@ const ProductDetail = () => {
 
 	const handleAddToCart = (productId, quantity = 1, size) => {
 		if (!selectedSize) {
-			alert("Please select a size before adding to cart.");
+			toast.info("Please select a size before adding to cart.");
 			return;
 		}
 		addToCart(productId, quantity, size);
-		alert(`Product added to cart`);
 	};
 
 	if (productLoading) {

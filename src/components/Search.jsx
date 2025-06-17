@@ -7,8 +7,13 @@ const Search = ({ search, onClose }) => {
 				<div className="search-close-switch" onClick={() => onClose(false)}>
 					+
 				</div>
-				<form className="search-model-form">
-					<input type="text" id="search-input" placeholder="Search here....." />
+				<form className="search-model-form" action="/shop">
+					<input
+						type="text"
+						id="search-input"
+						name="search"
+						placeholder="Search here....."
+					/>
 				</form>
 			</div>
 		</div>

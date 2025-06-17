@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import pb from "../utils/pocketbase";
 import useAuthStore from "./useAuthStore";
+import { toast } from "sonner";
 
 const useCartStore = create((set, get) => ({
 	cart: localStorage.getItem("pocketbase_cart")
@@ -52,7 +53,7 @@ const useCartStore = create((set, get) => ({
 			const items = await pb.collection("Cart_Item").getFullList({
 				filter: `cart="${cart.id}"`,
 			});
-			console.log("items:", items);
+			// console.log("items:", items);
 
 			// Check if an item with the same product and size already exists
 			const existingItem = items.find(
@@ -68,7 +69,7 @@ const useCartStore = create((set, get) => ({
 						quantity: updatedQuantity,
 					});
 				useCartStore.getState().getCart();
-				console.log("Updated item:", response);
+				// console.log("Updated item:", response);
 			} else {
 				// Otherwise, create a new cart item
 				const response = await pb.collection("Cart_Item").create({
@@ -80,6 +81,7 @@ const useCartStore = create((set, get) => ({
 				useCartStore.getState().getCart();
 				// console.log("Created item:", response);
 			}
+			toast.success("Product added to cart successfully");
 		} catch (err) {
 			console.error("Add to cart error:", err);
 		}
@@ -90,9 +92,10 @@ const useCartStore = create((set, get) => ({
 		try {
 			const response = await pb.collection("Cart_Item").delete(itemId);
 			console.log(response);
-			alert("removed item from cart");
+			toast.success("removed item from cart");
 			useCartStore.getState().getCart();
 		} catch (err) {
+			toast.error("Action Failed");
 			console.error("Remove from cart error:", err);
 		}
 	},
@@ -104,11 +107,12 @@ const useCartStore = create((set, get) => ({
 				quantity: quantity,
 			});
 			useCartStore.getState().getCart();
-			alert("updated product quantity");
+			toast.success("Updated product quantity");
 
 			console.log("Updated Cart Item Quantity", response);
 		} catch (err) {
 			console.error("Update cart error:", err);
+			toast.error("Action Failed");
 		}
 	},
 

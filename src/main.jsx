@@ -5,10 +5,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./assets/css/style.css";
 import { BrowserRouter as Router } from "react-router-dom";
+import { Toaster } from "sonner";
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
 		<Router>
+			<Toaster position="top-left" />
 			<App />
 		</Router>
 	</StrictMode>

@@ -13,8 +13,7 @@ const Login = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		login(email, password);
-		navigate("/");
+		login(email, password, navigate);
 	};
 
 	if (loginLoading) {
