@@ -4,31 +4,41 @@ import { Link, useLocation } from "react-router-dom";
 
 const BreadCrumb = ({ title }) => {
 	const currentPath = useLocation().pathname;
+
 	return (
-		<div className="breadcrumb-option">
+		<section
+			className="bg-light py-3 border-bottom"
+			style={{ marginTop: "80px" }} // ensures it's not covered by fixed header
+		>
 			<div className="container">
-				<div className="row">
-					<div className="col-lg-12">
-						<div className="breadcrumb__links d-flex align-items-center">
-							<Link to="/">
-								<FaHouse className="ms-2" /> Home
+				<div className="d-flex flex-wrap align-items-center gap-2">
+					<Link
+						to="/"
+						className="text-decoration-none text-dark fw-semibold d-flex align-items-center gap-1"
+					>
+						<FaHouse /> Home
+					</Link>
+
+					{currentPath !== "/shop" && (
+						<>
+							<FaAngleRight className="text-muted" />
+							<Link
+								to="/shop"
+								className="text-decoration-none text-dark fw-semibold d-flex align-items-center gap-1"
+							>
+								<FaBagShopping /> Shop
 							</Link>
-							{currentPath !== "/shop" ? (
-								<>
-									<FaAngleRight />
-									<Link to="/shop" className="ms-2">
-										<FaBagShopping /> Shop
-									</Link>
-								</>
-							) : null}
-							<span>
-								<FaAngleRight /> {title}
-							</span>
-						</div>
-					</div>
+						</>
+					)}
+
+					<FaAngleRight className="text-muted" />
+
+					<span className="fw-semibold text-secondary d-flex align-items-center gap-1">
+						{title}
+					</span>
 				</div>
 			</div>
-		</div>
+		</section>
 	);
 };
 
