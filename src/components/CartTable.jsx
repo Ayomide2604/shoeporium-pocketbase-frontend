@@ -22,6 +22,7 @@ const CartTable = ({ items, removeFromCart, updateCart }) => {
 							<td className="cart__product__item">
 								<img
 									src={getImageUrl(
+										"products",
 										item?.expand?.product?.id,
 										item?.expand?.product?.images[0]
 									)}

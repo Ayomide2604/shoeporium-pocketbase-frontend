@@ -11,7 +11,7 @@ const Product = ({ id, name, price, image }) => {
 				style={{ position: "relative", overflow: "hidden", height: "350px" }}
 			>
 				<img
-					src={getImageUrl(id, image)}
+					src={getImageUrl("products", id, image)}
 					alt={name}
 					style={{
 						height: "100%",

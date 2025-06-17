@@ -195,20 +195,8 @@ const ProductDetail = () => {
 										}}
 										className="cart-btn"
 									>
-										<span className="icon_bag_alt" /> Add to cart
+										Add to cart
 									</div>
-									<ul>
-										<li>
-											<a href="#">
-												<span className="icon_heart_alt" />
-											</a>
-										</li>
-										<li>
-											<a href="#">
-												<span className="icon_adjust-horiz" />
-											</a>
-										</li>
-									</ul>
 								</div>
 								{/* <div className="product__details__widget">
 									<ul>

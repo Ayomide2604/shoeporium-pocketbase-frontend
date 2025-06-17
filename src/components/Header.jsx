@@ -8,10 +8,11 @@ import { FaSearch } from "react-icons/fa";
 import logo from "../assets/img/logo.png"; // Replace with actual user image if you have
 import OffCanvas from "./OffCanvas";
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../stores/useAuthStore";
 import useCartStore from "../stores/useCartStore";
 import Search from "./Search";
+import getImageUrl from "../utils/getImageUrl";
 
 const Header = () => {
 	const [menuOpen, setMenuOpen] = useState(false);
@@ -20,6 +21,7 @@ const Header = () => {
 	const [search, setSearch] = useState(false);
 	const { user, logout } = useAuthStore();
 	const { total } = useCartStore();
+	const navigate = useNavigate();
 
 	const handleClose = () => {
 		setMenuOpen(false);
@@ -123,13 +125,22 @@ const Header = () => {
 											onClick={() => setDropdownOpen(!dropdownOpen)}
 										>
 											<img
-												src={logo}
+												src={
+													user?.record?.avatar
+														? getImageUrl(
+																"_pb_users_auth_",
+																user?.record?.id,
+																user?.record?.avatar
+														  )
+														: logo
+												}
 												alt="Profile"
 												className="rounded-circle border"
 												style={{
 													width: "40px",
 													height: "40px",
-													objectFit: "contain",
+													borderRadius: "20px",
+													objectFit: "cover",
 												}}
 											/>
 											<FaCaretDown />
@@ -171,7 +182,7 @@ const Header = () => {
 													<button
 														className="dropdown-item text-danger"
 														onClick={() => {
-															logout();
+															logout(navigate);
 															setDropdownOpen(false);
 														}}
 													>

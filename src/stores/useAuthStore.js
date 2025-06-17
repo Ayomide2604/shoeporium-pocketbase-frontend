@@ -10,12 +10,28 @@ const useAuthStore = create((set) => ({
 	registerLoading: false,
 	loginLoading: false,
 
+	getUser: async () => {
+		const user = useAuthStore.getState().user;
+		const record = await pb.collection("users").getOne(user?.record?.id, {});
+		// console.log(record);
+		localStorage.setItem(
+			"pocketbase_auth",
+			JSON.stringify({
+				...JSON.parse(localStorage.getItem("pocketbase_auth")),
+				record: record,
+			})
+		);
+	},
+
 	register: async (data, navigate) => {
 		try {
 			set((state) => ({ ...state, registerLoading: true }));
 			const response = await pb.collection("users").create(data);
 			set((state) => ({ ...state, registerLoading: false }));
 			toast.success("Registration successful");
+			const verify = await pb
+				.collection("users")
+				.requestVerification(data.email);
 			navigate("/login");
 			// console.log(response);
 		} catch (error) {
@@ -39,7 +55,7 @@ const useAuthStore = create((set) => ({
 			}));
 			toast.success("Login successful");
 			navigate("/");
-			// console.log(response);
+			console.log(response);
 		} catch (error) {
 			set((state) => ({ ...state, loginLoading: false }));
 			toast.error("Login Failed");
@@ -47,13 +63,14 @@ const useAuthStore = create((set) => ({
 		}
 	},
 
-	logout: async () => {
+	logout: async (navigate) => {
 		try {
 			toast.success("Logged out successfully");
 			set((state) => ({ ...state, user: null }));
 			localStorage.removeItem("pocketbase_auth");
+			navigate("/login");
 		} catch (error) {
-			alert("logout failed");
+			toast.error("logout failed");
 			console.error(error);
 		}
 	},
