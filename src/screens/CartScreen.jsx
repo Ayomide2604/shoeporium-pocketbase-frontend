@@ -5,12 +5,18 @@ import CartSummary from "../components/CartSummary";
 import Coupon from "./../components/Coupon";
 import useCartStore from "../stores/useCartStore";
 import EmptyCart from "../components/EmptyCart";
+import Loader from "../components/Loader";
 const CartScreen = () => {
-	const { items, getCart, removeFromCart, updateCart } = useCartStore();
+	const { items, getCart, removeFromCart, updateCart, cartLoading } =
+		useCartStore();
 
 	useEffect(() => {
 		getCart();
 	}, []);
+
+	if (cartLoading) {
+		return <Loader />;
+	}
 	return items && items.length > 0 ? (
 		<div>
 			<BreadCrumb title="Shopping Cart" />
