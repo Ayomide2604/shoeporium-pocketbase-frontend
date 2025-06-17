@@ -1,4 +1,3 @@
-// Header.jsx
 import {
 	FaBagShopping,
 	FaBars,
@@ -30,6 +29,10 @@ const Header = () => {
 				menuOpen={menuOpen}
 				onClose={() => setMenuOpen(false)}
 				total={total}
+				user={user}
+				logout={logout}
+				dropdownOpen={dropdownOpen}
+				setDropdownOpen={setDropdownOpen}
 			/>
 			<header className="navbar navbar-expand-lg bg-white shadow-sm py-2 fixed-top z-3">
 				<div className="container-fluid">
