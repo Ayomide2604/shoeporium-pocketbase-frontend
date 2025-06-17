@@ -99,7 +99,7 @@ const useCartStore = create((set, get) => ({
 			const response = await pb.collection("Cart_Item").delete(itemId);
 			console.log(response);
 			toast.success("removed item from cart");
-			// useCartStore.getState().getCart();
+			useCartStore.getState().getCart();
 			set((state) => ({ ...state, cartLoading: false }));
 		} catch (err) {
 			toast.error("Action Failed");
@@ -110,17 +110,19 @@ const useCartStore = create((set, get) => ({
 
 	// Update quantity
 	updateCart: async (itemId, quantity) => {
+		set((state) => ({ ...state, cartLoading: true }));
 		try {
 			const response = await pb.collection("Cart_Item").update(itemId, {
 				quantity: quantity,
 			});
 			useCartStore.getState().getCart();
 			toast.success("Updated product quantity");
-
+			set((state) => ({ ...state, cartLoading: false }));
 			console.log("Updated Cart Item Quantity", response);
 		} catch (err) {
 			console.error("Update cart error:", err);
 			toast.error("Action Failed");
+			set((state) => ({ ...state, cartLoading: false }));
 		}
 	},
 

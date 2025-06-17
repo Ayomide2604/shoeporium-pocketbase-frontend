@@ -6,6 +6,7 @@ import Coupon from "./../components/Coupon";
 import useCartStore from "../stores/useCartStore";
 import EmptyCart from "../components/EmptyCart";
 import Loader from "../components/Loader";
+
 const CartScreen = () => {
 	const { items, getCart, removeFromCart, updateCart, cartLoading } =
 		useCartStore();
