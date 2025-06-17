@@ -51,7 +51,7 @@ const HomeScreen = () => {
 							/>
 						</div>
 					</div>
-					<LatestProducts products={filteredProducts.slice(0, 12)} />
+					<LatestProducts products={filteredProducts.slice(0, 8)} />
 				</div>
 			</section>
 		</div>
