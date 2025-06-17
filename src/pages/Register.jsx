@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import useAuthStore from "./../stores/useAuthStore";
 import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 const Register = () => {
 	const [data, setData] = useState({});
 	const formRef = useRef(null);
@@ -25,7 +25,7 @@ const Register = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (data.password !== data.passwordConfirm) {
-			alert("Passwords do not match");
+			toast.error("Passwords do not match");
 		} else {
 			register(data, navigate);
 		}
