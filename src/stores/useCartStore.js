@@ -9,9 +9,11 @@ const useCartStore = create((set, get) => ({
 		: null,
 	items: [],
 	total: 0,
+	cartLoading: false,
 
 	getCart: async () => {
 		try {
+			set((state) => ({ ...state, cartLoading: true }));
 			const cart = await pb.collection("Cart").getFullList({
 				filter: `user="${useAuthStore.getState().user.record.id}"`,
 			});
@@ -33,14 +35,17 @@ const useCartStore = create((set, get) => ({
 					items: cartItems,
 					total: cartItems.length,
 				}));
+
 				// console.log("items: ", cartItems);
 			} else {
 				const newCart = await pb.collection("Cart").create({
 					user: `${useAuthStore.getState().user.record.id}`,
 				});
 			}
+			set((state) => ({ ...state, cartLoading: false }));
 		} catch (err) {
 			console.error("Get cart error:", err);
+			set((state) => ({ ...state, cartLoading: false }));
 		}
 	},
 

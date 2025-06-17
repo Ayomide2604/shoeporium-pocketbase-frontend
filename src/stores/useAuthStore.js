@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import pb from "./../utils/pocketbase";
 import { toast } from "sonner";
-import useCartStore from "./useCartStore";
 
 const useAuthStore = create((set) => ({
 	user: localStorage.getItem("pocketbase_auth")
