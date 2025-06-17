@@ -40,7 +40,7 @@ const Header = () => {
 
 	return (
 		<>
-			<OffCanvas menuOpen={menuOpen} onClose={handleClose} />
+			<OffCanvas menuOpen={menuOpen} onClose={handleClose} total={total} />
 			<header className="header">
 				<div className="container-fluid">
 					<div className="row align-items-center">
