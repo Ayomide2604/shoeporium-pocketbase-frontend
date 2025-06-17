@@ -24,16 +24,6 @@ const Header = () => {
 	const { total } = useCartStore();
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		const handleClickOutside = (event) => {
-			if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-				setDropdownOpen(false);
-			}
-		};
-		document.addEventListener("mousedown", handleClickOutside);
-		return () => document.removeEventListener("mousedown", handleClickOutside);
-	}, []);
-
 	return (
 		<>
 			<OffCanvas
@@ -41,7 +31,7 @@ const Header = () => {
 				onClose={() => setMenuOpen(false)}
 				total={total}
 			/>
-			<header className="navbar navbar-expand-lg bg-white shadow-sm py-2">
+			<header className="navbar navbar-expand-lg bg-white shadow-sm py-2 fixed-top z-3">
 				<div className="container-fluid">
 					<Link className="navbar-brand" to="/">
 						<img src={logo} alt="Logo" style={{ height: 60 }} />
