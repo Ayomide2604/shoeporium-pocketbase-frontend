@@ -9,6 +9,7 @@ const useAuthStore = create((set) => ({
 
 	registerLoading: false,
 	loginLoading: false,
+	passwordResetLoading: false,
 
 	getUser: async () => {
 		const user = useAuthStore.getState().user;
@@ -73,6 +74,19 @@ const useAuthStore = create((set) => ({
 		} catch (error) {
 			toast.error("logout failed");
 			console.error(error);
+		}
+	},
+
+	passwordReset: async (email, navigate) => {
+		set((state) => ({ ...state, passwordResetLoading: true }));
+		try {
+			await pb.collection("users").requestPasswordReset(email);
+			navigate("/login");
+			toast.success(`password reset email sent to ${email}`);
+			set((state) => ({ ...state, passwordResetLoading: false }));
+		} catch (error) {
+			console.error("Error", error);
+			toast.error("Password reset failed");
 		}
 	},
 }));

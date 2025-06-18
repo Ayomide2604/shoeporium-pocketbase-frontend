@@ -9,6 +9,7 @@ import ProductDetail from "./screens/ProductDetail";
 import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
 import CheckoutScreen from "./screens/CheckoutScreen";
+import ForgotPassword from "./pages/ForgotPassword";
 function App() {
 	return (
 		<>
@@ -22,6 +23,7 @@ function App() {
 					<Route path="/checkout" element={<CheckoutScreen />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Register />} />
+					<Route path="/forgot-password" element={<ForgotPassword />} />
 					<Route path="/profile" element={<Profile />} />
 				</Routes>
 			</div>

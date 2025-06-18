@@ -102,13 +102,13 @@ const Login = () => {
 								Remember me
 							</label>
 						</div>
-						<a
-							href="#"
+						<Link
+							to="/forgot-password"
 							className="text-decoration-none"
 							style={{ fontSize: 14, color: "#ca1515" }}
 						>
 							Forgot password?
-						</a>
+						</Link>
 					</div>
 
 					<button
