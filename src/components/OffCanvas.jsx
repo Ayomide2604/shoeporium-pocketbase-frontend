@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/img//logo.png";
 import { FaBagShopping, FaRegHeart, FaCaretDown } from "react-icons/fa6";
 import getImageUrl from "../utils/getImageUrl";
+import { FaSearch } from "react-icons/fa";
 
 const OffCanvas = ({
 	menuOpen,
@@ -26,6 +27,10 @@ const OffCanvas = ({
 						<span className="icon_search search-switch" />
 					</li>
 					<li>
+						<Link to="#" className="me-3">
+							<FaSearch />
+						</Link>
+
 						<Link to="#">
 							<FaRegHeart />
 							<div className="tip">2</div>
