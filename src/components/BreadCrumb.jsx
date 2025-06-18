@@ -6,10 +6,7 @@ const BreadCrumb = ({ title }) => {
 	const currentPath = useLocation().pathname;
 
 	return (
-		<section
-			className="bg-light py-3 border-bottom"
-			style={{ marginTop: "80px" }} // ensures it's not covered by fixed header
-		>
+		<section className="bg-light py-3 border-bottom">
 			<div className="container">
 				<div className="d-flex flex-wrap align-items-center gap-2">
 					<Link
