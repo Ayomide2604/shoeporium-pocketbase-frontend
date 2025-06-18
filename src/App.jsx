@@ -14,7 +14,7 @@ function App() {
 	return (
 		<>
 			<Header />
-			<div style={{ paddingTop: "100px" }}>
+			<div>
 				<Routes>
 					<Route path="/" element={<HomeScreen />} />
 					<Route path="/shop" element={<ProductScreen />} />

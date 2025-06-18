@@ -33,7 +33,7 @@ const Header = () => {
 				dropdownOpen={dropdownOpen}
 				setDropdownOpen={setDropdownOpen}
 			/>
-			<header className="navbar navbar-expand-lg bg-white shadow-sm py-2 fixed-top z-3">
+			<header className="navbar navbar-expand-lg bg-white shadow-sm py-2  z-3">
 				<div className="container-fluid">
 					<Link className="navbar-brand" to="/">
 						<img src={logo} alt="Logo" style={{ height: 60 }} />
