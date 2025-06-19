@@ -6,10 +6,13 @@ import Coupon from "./../components/Coupon";
 import useCartStore from "../stores/useCartStore";
 import EmptyCart from "../components/EmptyCart";
 import Loader from "../components/Loader";
+import useAuthStore from "../stores/useAuthStore";
 
 const CartScreen = () => {
 	const { items, getCart, removeFromCart, updateCart, cartLoading } =
 		useCartStore();
+
+	const { user } = useAuthStore();
 
 	useEffect(() => {
 		getCart();
@@ -18,7 +21,8 @@ const CartScreen = () => {
 	if (cartLoading) {
 		return <Loader />;
 	}
-	return items && items.length > 0 ? (
+
+	return user && items && items.length > 0 ? (
 		<div>
 			<BreadCrumb title="Shopping Cart" />
 			<section className="shop-cart spad">

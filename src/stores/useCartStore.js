@@ -13,36 +13,42 @@ const useCartStore = create((set, get) => ({
 
 	getCart: async () => {
 		try {
-			set((state) => ({ ...state, cartLoading: true }));
-			const cart = await pb.collection("Cart").getFullList({
-				filter: `user="${useAuthStore.getState().user.record.id}"`,
-			});
+			const user = useAuthStore.getState().user;
 
-			if (cart.length > 0) {
-				const userCart = cart[0];
-				set((state) => ({ ...state, cart: userCart }));
-				localStorage.setItem("pocketbase_cart", JSON.stringify(userCart));
-				// console.log("cartId:", userCart.id);
-
-				const cartItems = await pb.collection("Cart_Item").getFullList({
-					filter: `cart="${userCart.id}"`,
-					expand: "product",
+			if (user) {
+				set((state) => ({ ...state, cartLoading: true }));
+				const cart = await pb.collection("Cart").getFullList({
+					filter: `user="${useAuthStore.getState().user.record.id}"`,
 				});
 
-				// console.log("cartItems: ", cartItems);
-				set((state) => ({
-					...state,
-					items: cartItems,
-					total: cartItems.length,
-				}));
+				if (cart.length > 0) {
+					const userCart = cart[0];
+					set((state) => ({ ...state, cart: userCart }));
+					localStorage.setItem("pocketbase_cart", JSON.stringify(userCart));
+					// console.log("cartId:", userCart.id);
 
-				// console.log("items: ", cartItems);
+					const cartItems = await pb.collection("Cart_Item").getFullList({
+						filter: `cart="${userCart.id}"`,
+						expand: "product",
+					});
+
+					// console.log("cartItems: ", cartItems);
+					set((state) => ({
+						...state,
+						items: cartItems,
+						total: cartItems.length,
+					}));
+
+					// console.log("items: ", cartItems);
+				} else {
+					const newCart = await pb.collection("Cart").create({
+						user: `${useAuthStore.getState().user.record.id}`,
+					});
+				}
+				set((state) => ({ ...state, cartLoading: false }));
 			} else {
-				const newCart = await pb.collection("Cart").create({
-					user: `${useAuthStore.getState().user.record.id}`,
-				});
+				console.log("You need to login to access cart");
 			}
-			set((state) => ({ ...state, cartLoading: false }));
 		} catch (err) {
 			console.error("Get cart error:", err);
 			set((state) => ({ ...state, cartLoading: false }));
@@ -51,42 +57,48 @@ const useCartStore = create((set, get) => ({
 
 	// Add item to cart
 	addToCart: async (productId, quantity = 1, size) => {
+		const user = useAuthStore.getState().user;
+
 		try {
-			const cart = useCartStore.getState().cart;
+			if (user) {
+				const cart = useCartStore.getState().cart;
 
-			// Get all cart items for the current cart
-			const items = await pb.collection("Cart_Item").getFullList({
-				filter: `cart="${cart.id}"`,
-			});
-			// console.log("items:", items);
-
-			// Check if an item with the same product and size already exists
-			const existingItem = items.find(
-				(item) => item.product === productId && item.size === size
-			);
-
-			if (existingItem) {
-				// If it exists, increment the quantity
-				const updatedQuantity = existingItem.quantity + quantity;
-				const response = await pb
-					.collection("Cart_Item")
-					.update(existingItem.id, {
-						quantity: updatedQuantity,
-					});
-				useCartStore.getState().getCart();
-				// console.log("Updated item:", response);
-			} else {
-				// Otherwise, create a new cart item
-				const response = await pb.collection("Cart_Item").create({
-					product: productId,
-					quantity,
-					size,
-					cart: cart.id,
+				// Get all cart items for the current cart
+				const items = await pb.collection("Cart_Item").getFullList({
+					filter: `cart="${cart.id}"`,
 				});
-				useCartStore.getState().getCart();
-				// console.log("Created item:", response);
+				// console.log("items:", items);
+
+				// Check if an item with the same product and size already exists
+				const existingItem = items.find(
+					(item) => item.product === productId && item.size === size
+				);
+
+				if (existingItem) {
+					// If it exists, increment the quantity
+					const updatedQuantity = existingItem.quantity + quantity;
+					const response = await pb
+						.collection("Cart_Item")
+						.update(existingItem.id, {
+							quantity: updatedQuantity,
+						});
+					useCartStore.getState().getCart();
+					// console.log("Updated item:", response);
+				} else {
+					// Otherwise, create a new cart item
+					const response = await pb.collection("Cart_Item").create({
+						product: productId,
+						quantity,
+						size,
+						cart: cart.id,
+					});
+					useCartStore.getState().getCart();
+					// console.log("Created item:", response);
+				}
+				toast.success("Product added to cart successfully");
+			} else {
+				toast.error("You need to login first");
 			}
-			toast.success("Product added to cart successfully");
 		} catch (err) {
 			console.error("Add to cart error:", err);
 		}
