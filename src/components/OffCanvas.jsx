@@ -43,9 +43,17 @@ const OffCanvas = ({
 						</Link>
 					</li>
 				</ul>
-				<div className="offcanvas__logo" onClick={onClose}>
+				<div
+					className="offcanvas__logo d-flex justify-content-center align-items-center"
+					onClick={onClose}
+				>
 					<Link to="/">
-						<img src={logo} alt="" />
+						<img
+							src={logo}
+							alt=""
+							className="img-fluid"
+							style={{ maxHeight: 150 }}
+						/>
 					</Link>
 				</div>
 
