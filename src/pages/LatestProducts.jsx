@@ -16,6 +16,7 @@ const LatestProducts = ({ products }) => {
 							name={product.name}
 							price={product.price}
 							image={product.images[0]}
+							product={product}
 						/>
 					</div>
 				);

@@ -1,5 +1,9 @@
-const getImageUrl = (record, id, image) => {
-	const imageUrl = `https://shoeporium-pocketbase.onrender.com/api/files/${record}/${id}/${image}`;
+import pb from "./pocketbase";
+
+const getImageUrl = (record, image) => {
+	const imageUrl = pb.files.getURL(record, image);
+
+	console.log(imageUrl);
 	return imageUrl;
 };
 

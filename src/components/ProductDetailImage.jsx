@@ -27,7 +27,7 @@ const ProductDetailImage = ({
 						style={{ cursor: "pointer" }}
 					>
 						<img
-							src={getImageUrl("products", product.id, image)}
+							src={getImageUrl(product, image)}
 							alt=""
 							className="img-fluid border"
 							style={{ objectFit: "cover", height: "80px" }}
@@ -51,7 +51,7 @@ const ProductDetailImage = ({
 					{product?.images?.map((image, idx) => (
 						<SwiperSlide key={idx}>
 							<img
-								src={getImageUrl("products", product.id, image)}
+								src={getImageUrl(product, image)}
 								alt=""
 								className="img-fluid w-100"
 								style={{ maxHeight: "400px", objectFit: "cover" }}

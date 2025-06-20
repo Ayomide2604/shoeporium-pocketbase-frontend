@@ -3,7 +3,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import formatter from "./../utils/currencyFormatter";
 import getImageUrl from "./../utils/getImageUrl";
-const Product = ({ id, name, price, image }) => {
+const Product = ({ id, name, price, image, product }) => {
 	return (
 		<div className="product__item">
 			<div
@@ -11,7 +11,7 @@ const Product = ({ id, name, price, image }) => {
 				style={{ position: "relative", overflow: "hidden", height: "350px" }}
 			>
 				<img
-					src={getImageUrl("products", id, image)}
+					src={getImageUrl(product, image)}
 					alt={name}
 					style={{
 						height: "100%",
@@ -22,6 +22,7 @@ const Product = ({ id, name, price, image }) => {
 						left: 0,
 						zIndex: 1,
 					}}
+					loading="lazy"
 				/>
 				{/* <div
 					className="label new"
