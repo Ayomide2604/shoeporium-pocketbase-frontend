@@ -1,36 +1,11 @@
-// import React, { useState } from "react";
-// import { toast } from "react-toastify";
-// import useOrderStore from "../store/useOrderStore";
+import React from "react";
 import useAuthStore from "../stores/useAuthStore";
-const CheckoutForm = () => {
-	// const [addNote, setAddNote] = useState(false);
+
+const CheckoutForm = ({ shippingData, handleChange }) => {
 	const { user } = useAuthStore();
 
-	// const setShippingDetails = useOrderStore((s) => s.setShippingDetails);
-
-	// const handleSubmit = (e) => {
-	// 	e.preventDefault();
-	// 	const formData = new FormData(e.target);
-	// 	const shipping = {
-	// 		firstName: formData.get("firstName")?.trim() || "",
-	// 		lastName: formData.get("lastName")?.trim() || "",
-	// 		phone: formData.get("phone")?.trim() || "",
-	// 		state: formData.get("state")?.trim() || "",
-	// 		city: formData.get("city")?.trim() || "",
-	// 		address: formData.get("address")?.trim() || "",
-	// 	};
-	// 	setShippingDetails(shipping);
-	// 	// Do NOT call window.handlePlaceOrder here, just update shipping details
-	// 	toast.success("Shipping details saved. You can now place your order.");
-	// };
-
 	return (
-		<form
-			action="#"
-			className="checkout__form"
-			// onSubmit={handleSubmit}
-			autoComplete="off"
-		>
+		<form action="#" className="checkout__form" autoComplete="off">
 			<h5>Billing details</h5>
 			<div className="row">
 				<div className="col-lg-6 col-md-6 col-sm-6">
@@ -38,7 +13,13 @@ const CheckoutForm = () => {
 						<p>
 							First Name <span>*</span>
 						</p>
-						<input type="text" name="firstName" required />
+						<input
+							type="text"
+							name="firstName"
+							value={shippingData.firstName}
+							required
+							onChange={handleChange}
+						/>
 					</div>
 				</div>
 				<div className="col-lg-6 col-md-6 col-sm-6">
@@ -46,7 +27,13 @@ const CheckoutForm = () => {
 						<p>
 							Last Name <span>*</span>
 						</p>
-						<input type="text" name="lastName" required />
+						<input
+							type="text"
+							name="lastName"
+							value={shippingData.lastName}
+							required
+							onChange={handleChange}
+						/>
 					</div>
 				</div>
 				<div className="col-lg-6 col-md-6 col-sm-6">
@@ -55,9 +42,9 @@ const CheckoutForm = () => {
 							Email <span>*</span>
 						</p>
 						<input
-							type="text"
+							type="email"
 							name="email"
-							value={user?.record?.email || ""}
+							value={shippingData.email}
 							required
 							disabled
 						/>
@@ -68,7 +55,13 @@ const CheckoutForm = () => {
 						<p>
 							Phone <span>*</span>
 						</p>
-						<input type="text" name="phone" required />
+						<input
+							type="text"
+							name="phone"
+							value={shippingData.phone}
+							required
+							onChange={handleChange}
+						/>
 					</div>
 				</div>
 				<div className="col-lg-12">
@@ -83,11 +76,13 @@ const CheckoutForm = () => {
 									className="form-control"
 									style={{ height: "48px", fontSize: "16px" }}
 									required
+									value={shippingData.state}
+									onChange={handleChange}
 								>
 									<option value="">Select State</option>
-									<option value="Lagos">Lagos</option>
-									<option value="Ibadan">Ibadan</option>
-									<option value="Ogun">Ogun</option>
+									<option value="lagos">Lagos</option>
+									<option value="ibadan">Ibadan</option>
+									<option value="ogun">Ogun</option>
 								</select>
 							</div>
 						</div>
@@ -96,7 +91,13 @@ const CheckoutForm = () => {
 								<p>
 									Town/City <span>*</span>
 								</p>
-								<input type="text" name="city" required />
+								<input
+									type="text"
+									name="city"
+									value={shippingData.city}
+									required
+									onChange={handleChange}
+								/>
 							</div>
 						</div>
 					</div>
@@ -107,42 +108,23 @@ const CheckoutForm = () => {
 						<input
 							type="text"
 							name="address"
+							value={shippingData.address}
 							placeholder="Street Address"
 							required
+							onChange={handleChange}
+						/>
+					</div>
+					<div className="checkout__form__input">
+						<p>Notes</p>
+						<textarea
+							name="notes"
+							value={shippingData.notes}
+							rows={5}
+							placeholder="Notes about your order, e.g., special note for delivery"
+							onChange={handleChange}
 						/>
 					</div>
 				</div>
-
-				{/* Add delivery notes later */}
-				{/* <div className="col-lg-12">
-					<div className="checkout__form__checkbox">
-						<label htmlFor="note">
-							Note about your order, e.g, special note for delivery
-							<input
-								type="checkbox"
-								id="note"
-								name="addNote"
-								onChange={(e) => setAddNote(e.target.checked)}
-							/>
-							<span className="checkmark" />
-						</label>
-					</div>
-					<div
-						className="checkout__form__input "
-						style={{ display: addNote ? "block" : "none" }}
-					>
-						<p>
-							Order notes <span>*</span>
-						</p>
-						<textarea
-							className="form-control"
-							type="text"
-							name="orderNote"
-							rows={5}
-							placeholder="Note about your order, e.g, special note for delivery"
-						/>
-					</div>
-				</div> */}
 			</div>
 		</form>
 	);

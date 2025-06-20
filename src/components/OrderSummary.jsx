@@ -1,13 +1,26 @@
 import React from "react";
 import formatter from "../utils/currencyFormatter";
+import { useNavigate } from "react-router-dom";
+import useOrderStore from "../stores/useOrderStore";
+import { toast } from "sonner";
 
-const OrderSummary = ({ createOrder, items }) => {
+const OrderSummary = ({ createOrder, items, shippingData }) => {
+	const { order } = useOrderStore();
+
+	console.log("order in order summary", order);
+	const navigate = useNavigate();
+	const handleSubmit = () => {
+		createOrder(shippingData);
+		navigate(`/orders/${order?.id}`);
+		toast.success("Order Placed Successfully");
+	};
 	const shippingFee = 3000;
 	const subtotal = items.reduce(
 		(sum, item) => sum + item?.expand?.product?.price * item.quantity,
 		0
 	);
 	const total = subtotal + shippingFee;
+
 	return (
 		<div className="checkout__order">
 			<h5>Your order</h5>
@@ -18,7 +31,7 @@ const OrderSummary = ({ createOrder, items }) => {
 						<span className="top__text__right">Total</span>
 					</li>
 					{items.map((item, idx) => (
-						<li>
+						<li key={idx}>
 							{idx + 1}. {item.expand.product.name}{" "}
 							<span>{formatter.format(item.expand.product.price)}</span>
 						</li>
@@ -38,8 +51,7 @@ const OrderSummary = ({ createOrder, items }) => {
 					</li>
 				</ul>
 			</div>
-
-			<button type="submit" className="site-btn" onClick={createOrder}>
+			<button type="submit" className="site-btn" onClick={handleSubmit}>
 				Place order
 			</button>
 		</div>

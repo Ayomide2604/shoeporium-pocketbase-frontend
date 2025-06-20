@@ -10,6 +10,8 @@ import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
 import CheckoutScreen from "./screens/CheckoutScreen";
 import ForgotPassword from "./pages/ForgotPassword";
+import OrderList from "./pages/OrderList";
+import OrderDetail from "./pages/OrderDetail";
 function App() {
 	return (
 		<>
@@ -25,6 +27,8 @@ function App() {
 					<Route path="/register" element={<Register />} />
 					<Route path="/forgot-password" element={<ForgotPassword />} />
 					<Route path="/profile" element={<Profile />} />
+					<Route path="/orders" element={<OrderList />} />
+					<Route path="/orders/:id" element={<OrderDetail />} />
 				</Routes>
 			</div>
 			<Footer />
