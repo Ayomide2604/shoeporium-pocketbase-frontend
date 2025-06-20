@@ -25,8 +25,7 @@ const CartTable = ({ items, removeFromCart, updateCart }) => {
 							<td className="d-flex flex-column flex-md-row align-items-center gap-3 text-start">
 								<img
 									src={getImageUrl(
-										"products",
-										item?.expand?.product?.id,
+										item?.expand?.product,
 										item?.expand?.product?.images[0]
 									)}
 									alt={item.product?.name}
