@@ -10,9 +10,7 @@ const OrderSummary = ({ createOrder, items, shippingData }) => {
 	console.log("order in order summary", order);
 	const navigate = useNavigate();
 	const handleSubmit = () => {
-		createOrder(shippingData);
-		navigate(`/orders/${order?.id}`);
-		toast.success("Order Placed Successfully");
+		createOrder(shippingData, navigate);
 	};
 	const shippingFee = 3000;
 	const subtotal = items.reduce(

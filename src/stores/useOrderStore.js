@@ -9,7 +9,7 @@ const useOrderStore = create((set) => ({
 	orderItems: [],
 	orderShipping: null,
 
-	createOrderFromCart: async (shippingData) => {
+	createOrderFromCart: async (shippingData, navigate) => {
 		const cartItems = useCartStore.getState().items;
 		const cartId = useCartStore.getState().cart.id;
 		const user = useAuthStore.getState().user.record.id;
@@ -80,6 +80,8 @@ const useOrderStore = create((set) => ({
 			}));
 
 			console.log("order updated in state");
+			navigate(`/orders/${order?.id}`);
+			toast.success("Order Placed Successfully");
 		} else {
 			toast.warning("You cannot place an empty order");
 		}
