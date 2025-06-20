@@ -14,11 +14,7 @@ const ProfileCard = ({ user }) => {
 			<div className="col-lg-12">
 				<div className="d-flex align-items-center bg-light p-4 rounded">
 					<img
-						src={
-							user?.avatar
-								? getImageUrl("_pb_users_auth_", user?.id, user?.avatar)
-								: logo
-						}
+						src={user?.avatar ? getImageUrl(user, user?.avatar) : logo}
 						alt="avatar"
 						className="rounded-circle me-4"
 						style={{
