@@ -132,11 +132,7 @@ const OffCanvas = ({
 							<img
 								src={
 									user?.record?.avatar
-										? getImageUrl(
-												"_pb_users_auth_",
-												user?.record?.id,
-												user?.record?.avatar
-										  )
+										? getImageUrl(user?.record, user?.record?.avatar)
 										: logo
 								}
 								alt="User"
