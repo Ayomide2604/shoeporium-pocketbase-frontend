@@ -53,7 +53,7 @@ const ProductScreen = () => {
 	return (
 		<>
 			<Search />
-			<BreadCrumb title="Shop" />
+			<BreadCrumb items={[{ title: "Shop" }]} />
 			<section className="shop spad">
 				<div className="container">
 					<div className="row">

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useOrderStore from "../stores/useOrderStore";
 import getImageUrl from "./../utils/getImageUrl";
 import formatter from "./../utils/currencyFormatter";
+import BreadCrumb from "./../components/BreadCrumb";
 
 const OrderDetail = () => {
 	const { id } = useParams();
@@ -22,6 +23,12 @@ const OrderDetail = () => {
 
 	return (
 		<div className="container mt-4">
+			<BreadCrumb
+				items={[
+					{ title: "Orders", link: "/orders" },
+					{ title: `#${order?.id}`, link: "#" },
+				]}
+			/>
 			<h2 className="mb-4">Order Details</h2>
 			<div className="card mb-4">
 				<div className="card-header">
@@ -59,7 +66,7 @@ const OrderDetail = () => {
 				</div>
 				<div className="card-body">
 					{orderItems.map((item) => (
-						<div key={item.id} className="row mb-3 align-items-center">
+						<div key={item?.id} className="row mb-3 align-items-center">
 							<div className="col-md-2">
 								<img
 									src={getImageUrl(
@@ -74,16 +81,14 @@ const OrderDetail = () => {
 								<p className="mb-0">{item?.expand?.product?.name}</p>
 							</div>
 							<div className="col-md-2">
-								<p className="mb-0">
-									Quantity: {item?.expand?.product?.quantity}
-								</p>
+								<p className="mb-0">Quantity: {item?.quantity}</p>
 							</div>
 							<div className="col-md-2">
-								<p className="mb-0">Price: {formatter.format(item.price)}</p>
+								<p className="mb-0">Price: {formatter.format(item?.price)}</p>
 							</div>
 							<div className="col-md-2">
 								<p className="mb-0">
-									Total: ${formatter.format(item.price * item.quantity)}
+									Total: {formatter.format(item?.price * item?.quantity)}
 								</p>
 							</div>
 						</div>

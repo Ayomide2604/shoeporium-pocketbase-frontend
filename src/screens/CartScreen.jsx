@@ -24,7 +24,7 @@ const CartScreen = () => {
 
 	return user && items && items.length > 0 ? (
 		<div>
-			<BreadCrumb title="Shopping Cart" />
+			<BreadCrumb items={[{ title: "Shopping Cart", link: "/cart" }]} />
 			<section className="shop-cart spad">
 				<div className="container">
 					<div className="row">

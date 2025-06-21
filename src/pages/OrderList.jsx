@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import useOrderStore from "../stores/useOrderStore";
+import BreadCrumb from "../components/BreadCrumb";
 
 const OrderList = () => {
 	const { fetchUserOrders, orders } = useOrderStore();
@@ -11,6 +12,7 @@ const OrderList = () => {
 
 	return (
 		<div className="container">
+			<BreadCrumb items={[{ title: "Orders" }]} />
 			<h2>Order List</h2>
 			<div className="row">
 				<div className="col-12">

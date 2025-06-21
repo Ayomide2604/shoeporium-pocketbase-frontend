@@ -50,7 +50,12 @@ const ProductDetail = () => {
 		<div>
 			{product ? (
 				<>
-					<BreadCrumb title={product?.name} />
+					<BreadCrumb
+						items={[
+							{ title: "Shop", link: "/shop" },
+							{ title: `${product?.name} ` },
+						]}
+					/>
 
 					<section className="product-details spad">
 						<div className="container">
