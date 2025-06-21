@@ -6,10 +6,12 @@ import { toast } from "sonner";
 const useOrderStore = create((set) => ({
 	orders: [],
 	order: null,
+	loading: false,
 	orderItems: [],
 	orderShipping: null,
 
 	createOrderFromCart: async (shippingData, navigate) => {
+		set((state) => ({ ...state, loading: true }));
 		const cartItems = useCartStore.getState().items;
 		const cartId = useCartStore.getState().cart.id;
 		const user = useAuthStore.getState().user.record.id;
@@ -82,6 +84,7 @@ const useOrderStore = create((set) => ({
 			}));
 
 			console.log("order updated in state");
+			set((state) => ({ ...state, loading: false }));
 			navigate(`/orders/${order?.id}`);
 			toast.success("Order Placed Successfully");
 		} else {

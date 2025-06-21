@@ -1,11 +1,9 @@
-import React from "react";
 import formatter from "../utils/currencyFormatter";
 import { useNavigate } from "react-router-dom";
 import useOrderStore from "../stores/useOrderStore";
-import { toast } from "sonner";
-
+import Loader from "../components/Loader";
 const OrderSummary = ({ createOrder, items, shippingData }) => {
-	const { order } = useOrderStore();
+	const { order, loading } = useOrderStore();
 
 	console.log("order in order summary", order);
 	const navigate = useNavigate();
@@ -14,10 +12,14 @@ const OrderSummary = ({ createOrder, items, shippingData }) => {
 	};
 	const shippingFee = 3000;
 	const subtotal = items.reduce(
-		(sum, item) => sum + item?.expand?.product?.price * item.quantity,
+		(sum, item) => sum + item?.expand?.product?.price * item?.quantity,
 		0
 	);
 	const total = subtotal + shippingFee;
+
+	if (loading) {
+		return <Loader />;
+	}
 
 	return (
 		<div className="checkout__order">
@@ -30,8 +32,8 @@ const OrderSummary = ({ createOrder, items, shippingData }) => {
 					</li>
 					{items.map((item, idx) => (
 						<li key={idx}>
-							{idx + 1}. {item.expand.product.name}{" "}
-							<span>{formatter.format(item.expand.product.price)}</span>
+							{idx + 1}. {item?.expand?.product?.name}{" "}
+							<span>{formatter.format(item?.expand?.product?.price)}</span>
 						</li>
 					))}
 				</ul>
