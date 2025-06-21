@@ -14,6 +14,7 @@ const useOrderStore = create((set) => ({
 		const cartId = useCartStore.getState().cart.id;
 		const user = useAuthStore.getState().user.record.id;
 		const payment_status = "pending";
+		const order_status = "pending";
 		const total = cartItems.reduce(
 			(sum, item) => sum + item.expand.product.price * item.quantity,
 			0
@@ -29,6 +30,7 @@ const useOrderStore = create((set) => ({
 				user: user,
 				paid: payment_status,
 				total: total,
+				status: order_status,
 			});
 			console.log("order created", order);
 
