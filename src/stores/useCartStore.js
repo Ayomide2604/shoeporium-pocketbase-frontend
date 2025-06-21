@@ -61,6 +61,7 @@ const useCartStore = create((set, get) => ({
 
 		try {
 			if (user) {
+				get().getCart();
 				const cart = useCartStore.getState().cart;
 
 				// Get all cart items for the current cart

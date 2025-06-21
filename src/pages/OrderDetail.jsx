@@ -9,6 +9,12 @@ const OrderDetail = () => {
 	const { id } = useParams();
 	const { fetchOrderById, order, orderShipping, orderItems } = useOrderStore();
 
+	console.log("order items before", orderItems);
+
+	const items = orderItems.filter((item) => order === order.id);
+
+	console.log("order items after", items);
+
 	useEffect(() => {
 		fetchOrderById(id);
 	}, [id]);
@@ -115,8 +121,13 @@ const OrderDetail = () => {
 								<strong>Shipping Fee:</strong> {formatter.format(shippingFee)}
 							</p>
 							<p>
-								<strong>Grand Total:</strong> ${formatter.format(grandTotal)}
+								<strong>Grand Total:</strong> {formatter.format(grandTotal)}
 							</p>
+							<div className="d-flex justify-content-end">
+								{order?.status === "pending" && (
+									<button className="btn btn-dark me-3 ">Make Payment</button>
+								)}
+							</div>
 						</div>
 					</div>
 				</div>

@@ -2,13 +2,15 @@ import formatter from "../utils/currencyFormatter";
 import { useNavigate } from "react-router-dom";
 import useOrderStore from "../stores/useOrderStore";
 import Loader from "../components/Loader";
+import useCartStore from "../stores/useCartStore";
 const OrderSummary = ({ createOrder, items, shippingData }) => {
 	const { order, loading } = useOrderStore();
+	const { getCart } = useCartStore();
 
-	console.log("order in order summary", order);
 	const navigate = useNavigate();
 	const handleSubmit = () => {
 		createOrder(shippingData, navigate);
+		getCart();
 	};
 	const shippingFee = 3000;
 	const subtotal = items.reduce(

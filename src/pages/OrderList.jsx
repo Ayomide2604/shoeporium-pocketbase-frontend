@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import useOrderStore from "../stores/useOrderStore";
 import BreadCrumb from "../components/BreadCrumb";
+import formatter from "../utils/currencyFormatter";
 
 const OrderList = () => {
 	const { fetchUserOrders, orders } = useOrderStore();
@@ -31,7 +32,7 @@ const OrderList = () => {
 								<tr key={order.id}>
 									<td>{order.id}</td>
 									<td>{order.created}</td>
-									<td>${order.total.toFixed(2)}</td>
+									<td>{formatter.format(order.total)}</td>
 									<td>{order.status}</td>
 									<td>
 										<Link

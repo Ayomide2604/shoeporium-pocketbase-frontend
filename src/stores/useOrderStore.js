@@ -11,7 +11,6 @@ const useOrderStore = create((set) => ({
 	orderShipping: null,
 
 	createOrderFromCart: async (shippingData, navigate) => {
-		set((state) => ({ ...state, loading: true }));
 		const cartItems = useCartStore.getState().items;
 		const cartId = useCartStore.getState().cart.id;
 		const user = useAuthStore.getState().user.record.id;
@@ -28,6 +27,7 @@ const useOrderStore = create((set) => ({
 
 		// Create Order
 		if (cartItems.length > 0) {
+			set((state) => ({ ...state, loading: true }));
 			const order = await pb.collection("Order").create({
 				user: user,
 				paid: payment_status,
@@ -35,6 +35,7 @@ const useOrderStore = create((set) => ({
 				status: order_status,
 			});
 			console.log("order created", order);
+			set((state) => ({ ...state, order: order }));
 
 			console.log("Shippping Data", shippingData);
 			//  add the shipping details to order
@@ -54,7 +55,7 @@ const useOrderStore = create((set) => ({
 			console.log("Shipping created and added to order", shipping);
 
 			// convert cart items to order items
-			await Promise.all(
+			const orderItems = await Promise.all(
 				cartItems.map((item) => {
 					const payload = {
 						order: order.id,
@@ -107,19 +108,18 @@ const useOrderStore = create((set) => ({
 	fetchOrderById: async (id) => {
 		const order = await pb.collection("Order").getOne(id, {});
 
-		const orderItems = await pb
-			.collection("Order_Item")
-			.getFullList(`order="${order.id}"`, {
-				expand: "product",
-			});
+		const orderItems = await pb.collection("Order_Item").getFullList({
+			expand: "product",
+			filter: `order="${order?.id}"`,
+		});
 
 		const shipping = await pb
 			.collection("Shipping")
 			.getFirstListItem(`order="${order.id}"`, {});
 
-		console.log("order:", order);
-		console.log("shipping:", shipping);
-		console.log("items:", orderItems);
+		// console.log("order:", order);
+		// console.log("shipping:", shipping);
+		// console.log("items:", orderItems);
 
 		set((state) => ({
 			...state,
