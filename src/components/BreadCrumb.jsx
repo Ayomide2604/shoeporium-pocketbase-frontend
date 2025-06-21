@@ -19,7 +19,7 @@ const BreadCrumb = ({ items }) => {
 							<FaHouse /> Home
 						</Link>
 						{exceptLast.map((item, idx) => (
-							<div className="d-flex align-items-center">
+							<div key={idx} className="d-flex align-items-center">
 								<FaAngleRight className="text-muted" />
 								<Link
 									to={item?.link}
