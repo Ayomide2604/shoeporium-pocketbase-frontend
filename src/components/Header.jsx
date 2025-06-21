@@ -13,6 +13,7 @@ import useCartStore from "../stores/useCartStore";
 import Search from "./Search";
 import OffCanvas from "./OffCanvas";
 import getImageUrl from "../utils/getImageUrl";
+import Headroom from "react-headroom";
 
 const Header = () => {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -23,7 +24,13 @@ const Header = () => {
 	const navigate = useNavigate();
 
 	return (
-		<>
+		<Headroom
+			style={{
+				WebkitTransition: "all .5s ease-in-out",
+				transition: "all .5s ease-in-out",
+				zIndex: 1000,
+			}}
+		>
 			<OffCanvas
 				menuOpen={menuOpen}
 				onClose={() => setMenuOpen(false)}
@@ -33,7 +40,7 @@ const Header = () => {
 				dropdownOpen={dropdownOpen}
 				setDropdownOpen={setDropdownOpen}
 			/>
-			<header className="navbar navbar-expand-lg bg-white shadow-sm py-2  z-3">
+			<header className="navbar navbar-expand-lg bg-white shadow-sm py-2 ">
 				<div className="container-fluid">
 					<Link className="navbar-brand" to="/">
 						<img src={logo} alt="Logo" style={{ height: 60 }} />
@@ -161,7 +168,7 @@ const Header = () => {
 				</div>
 			</header>
 			<Search search={search} onClose={setSearch} />
-		</>
+		</Headroom>
 	);
 };
 
